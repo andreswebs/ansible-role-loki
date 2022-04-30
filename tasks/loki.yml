@@ -1,0 +1,65 @@
+---
+- name: Create loki user
+  ansible.builtin.user:
+    state: present
+    name: loki
+    create_home: no
+    system: yes
+    password: "*"
+    shell: /usr/sbin/nologin
+  tags:
+    - loki
+    - loki_system
+
+- name: Create Loki config dir
+  ansible.builtin.file:
+    owner: root
+    group: root
+    mode: '0755'
+    state: directory
+    dest: /etc/loki
+  tags:
+    - loki
+    - loki_config
+
+- name: Set Loki config
+  ansible.builtin.copy:
+    owner: root
+    group: root
+    mode: '0644'
+    src: loki.config.yml
+    dest: /etc/loki/loki.config.yml
+  notify: Restart Loki
+  tags:
+    - loki
+    - loki_system
+    - loki_config
+
+- name: Install Loki
+  # ansible.builtin.script: scripts/install-loki
+  script: scripts/install-loki
+  args:
+    creates: /usr/local/bin/loki
+  tags:
+    - loki
+    - loki_install
+
+- name: Set /lib/systemd/system/loki.service
+  ansible.builtin.copy:
+    owner: root
+    group: root
+    mode: '0644'
+    src: loki.service
+    dest: /lib/systemd/system/loki.service
+  tags:
+    - loki
+    - loki_service
+
+- name: Start and enable Loki service
+  ansible.builtin.service:
+    name: loki
+    state: started
+    enabled: yes
+  tags:
+    - loki
+    - loki_service
