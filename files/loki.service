@@ -1,11 +1,13 @@
 [Unit]
-Description=Loki service
+Description=Loki
+Wants=network-online.target
 After=network.target
 
 [Service]
-Type=simple
 User=loki
-ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.config.yml
+Group=loki
+Type=simple
+ExecStart=/usr/local/bin/loki -config.file /etc/loki/loki.yml
 
 [Install]
 WantedBy=multi-user.target
