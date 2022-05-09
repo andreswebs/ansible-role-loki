@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Andre Silva
-  description: Installs loki
+  description: Installs Loki
   role_name: loki
 
   license: Unlicense
