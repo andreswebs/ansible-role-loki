@@ -27,7 +27,7 @@ schema_config:
       index:
         prefix: index_
         period: 24h
-        
+
     - from: 2022-06-30
       store: boltdb-shipper
       object_store: filesystem
@@ -38,6 +38,12 @@ schema_config:
 
 ruler:
   alertmanager_url: http://localhost:9093
+  enable_alertmanager_v2: true
+  rule_path: /var/lib/loki/scratch
+  storage:
+    type: local
+    local:
+      directory: /var/lib/loki/rules
 
 analytics:
   reporting_enabled: false
