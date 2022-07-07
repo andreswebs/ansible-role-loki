@@ -44,6 +44,8 @@ ruler:
     type: local
     local:
       directory: /var/lib/loki/rules
+  wal:
+    dir: /var/lib/loki/ruler-wal
   # remote_write:
   #   enabled: true
   #   client:
