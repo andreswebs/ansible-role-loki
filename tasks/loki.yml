@@ -33,6 +33,28 @@
     - loki
     - loki_system
 
+- name: Create /var/lib/loki/rules
+  ansible.builtin.file:
+    owner: loki
+    group: loki
+    mode: '0755'
+    state: directory
+    dest: /var/lib/loki/rules
+  tags:
+    - loki
+    - loki_system
+
+- name: Create /var/lib/loki/scratch
+  ansible.builtin.file:
+    owner: loki
+    group: loki
+    mode: '0755'
+    state: directory
+    dest: /var/lib/loki/scratch
+  tags:
+    - loki
+    - loki_system
+
 - name: Create Loki config dir
   ansible.builtin.file:
     owner: root

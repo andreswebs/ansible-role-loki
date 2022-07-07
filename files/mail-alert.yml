@@ -1,0 +1,12 @@
+---
+groups:
+  - name: mail
+    rules: 
+      - alert: mail-blocked
+        annotations:
+          title: "Mail Blocked Alert"
+          msg: "[{{ $labels.job }}] Mail blocked"
+        expr: 'count_over_time(({filename="/var/log/mail.log"} |= "[mail-blocked]")[5m]) > 1'
+        for: 10m
+        labels: 
+          severity: critical
