@@ -44,6 +44,10 @@ ruler:
     type: local
     local:
       directory: /var/lib/loki/rules
+  # remote_write:
+  #   enabled: true
+  #   client:
+  #     url: http://localhost:9090/api/v1/write
 
 analytics:
   reporting_enabled: false
